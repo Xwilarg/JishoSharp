@@ -1,0 +1,13 @@
+image: Visual Studio 2017
+
+before_build:
+- nuget restore
+- choco install opencover.portable
+- choco install codecov
+
+build:
+  project: JishoSharp.sln
+
+test_script:
+- OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:".\JishoSharp.UnitTests\bin\Debug\JishoSharp.UnitTests.dll -noshadow" -filter:"+[JishoSharp*]* -[JishoSharp.UnitTests*]*" -output:".\coverage.xml"
+- codecov -f "coverage.xml"
