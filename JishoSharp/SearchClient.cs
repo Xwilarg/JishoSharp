@@ -20,6 +20,8 @@ namespace JishoSharp
             {
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 string json = await hc.GetStringAsync("https://jisho.org/api/v1/search/words?keyword=" + Uri.EscapeDataString(query));
+                // Make sure that if there is no dbpedia it set it value to null and not to "False"
+                json = json.Replace("\"dbpedia\":false", "\"dbpedia\":null");
                 // The json have 2 elements, meta and data. We take data and convert it to an array of WordSearchResult
                 JObject obj = JObject.Parse(json);
                 JToken data = obj.GetValue("data");

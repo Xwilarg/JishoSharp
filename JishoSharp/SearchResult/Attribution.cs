@@ -1,4 +1,6 @@
-﻿namespace JishoSharp.SearchResult
+﻿using Newtonsoft.Json;
+
+namespace JishoSharp.SearchResult
 {
     public struct Attribution
     {
